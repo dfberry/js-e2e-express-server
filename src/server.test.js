@@ -2,34 +2,27 @@ const request = require('supertest');
 const { create } = require('./server');
 
 describe('root', () => {
+    let app;
 
-    it('request root, returns html', async (done) => {
+    beforeAll(async () => {
+        app = await create();
+    });
 
-        const app = await create();
-
-        return request(app)
+    it('request root, returns html', () => request(app)
             .get('/')
             .expect(200)
             .then((res) => {
                 expect(res.text).toContain('Welcome to Express');
-                done();
-            }).catch(err => done(err));;
-    });
-    it('request api, returns json', async (done) => {
+            }));
 
-        const app = await create();
-
-        return request(app)
+    it('request api, returns json', () => request(app)
             .get('/api/hello')
             .expect(200)
             .then((res) => {
                 expect(res.body).toEqual({ hello: 'goodbye' });
-                done();
-            }).catch(err => done(err));;
-    });    
-    it('request invalid path, returns 404', async (done) => {
+            }));
 
-        const app = await create();
+    it('request invalid path, returns 404', () => {
         const invalidPath = '/invalid-path';
         const invalidPathError = `Cannot GET ${invalidPath}`;
 
@@ -38,7 +31,6 @@ describe('root', () => {
             .expect(404)
             .then((res) => {
                 expect(res.text).toContain(invalidPathError);
-                done();
-            }).catch(err => done(err));;
+            });
     });
 });

@@ -11,8 +11,9 @@
     "build": "npm run lint",
     "start": "node src/index.js",
     "start:dev": "npm run lint && nodemon --exec node src/index.js --unhandled-rejections=warn",
-    "test": "jest --detectOpenHandles --coverage",
-    "lint": "eslint src/**/*.js --fix"
+    "test": "jest --detectOpenHandles --coverage --coverageReporters=cobertura",
+    "lint": "eslint src/**/*.js --fix",
+    "build:webpack": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,9 @@
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
-    "supertest": "^6.3.4"
+    "supertest": "^6.3.4",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
